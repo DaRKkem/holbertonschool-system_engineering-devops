@@ -1,0 +1,59 @@
+```mermaid
+flowchart LR
+    User("User\nwww.foobar.com") -->|DNS query| DNS["DNS\nwww → 8.8.8.8"]
+    DNS -->|IP: 8.8.8.8| Server
+    User -->|HTTP/HTTPS request| Server
+
+    subgraph Server["SERVER 8.8.8.8"]
+        WebServer["Web Server\n(Nginx)"]
+        AppServer["Application Server"]
+        Codebase["Codebase\n(Application Files)"]
+        DB["Database\n(MySQL)"]
+
+        WebServer -->|forwards request| AppServer
+        AppServer -->|reads/writes| DB
+        AppServer --- Codebase
+    end
+
+    Server -->|HTTP response| User
+```
+
+
+---
+
+
+EXPLANATIONS
+
+What is a server:
+A device or program that provides functionality to clients over a network.
+
+Role of the domain name:
+Provides a human-readable address (www.foobar.com) that maps to the server IP (8.8.8.8), so users dont need to remember IPs.
+
+DNS record type of www:
+A record — points www.foobar.com directly to IP 8.8.8.8.
+
+Role of the web server (Nginx):
+Receives HTTP/HTTPS requests from the user, serves static content, and forwards dynamic requests to the application server.
+
+Role of the application server:
+Executes the application logic, processes dynamic requests, interacts with the database, and returns the result to the web server.
+
+Role of the database (MySQL):
+Stores and organizes the application data so it can be read, written, and managed by the application server.
+
+Communication protocol:
+The server communicates with the users computer using TCP/IP over HTTP or HTTPS.
+
+---
+
+ISSUES
+
+SPOF (Single Point of Failure):
+Only one server — if it goes down, the entire website is unavailable.
+
+Downtime during maintenance:
+Deploying new code requires restarting Nginx or the app server, causing temporary unavailability.
+
+Cannot scale:
+One server cannot handle a massive spike in traffic — no horizontal scaling possible.

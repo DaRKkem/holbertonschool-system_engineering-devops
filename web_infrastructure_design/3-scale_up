@@ -1,0 +1,43 @@
+```mermaid
+flowchart LR
+    User("User\nwww.foobar.com") -->|HTTPS request| LB_Cluster
+
+    subgraph LB_Cluster["LOAD BALANCER CLUSTER (HAproxy)"]
+        LB1["Load Balancer 1\n(active)"]
+        LB2["Load Balancer 2\n(passive)"]
+        LB1 <-->|sync| LB2
+    end
+
+    LB_Cluster -->|forwards to| WS_Server
+    LB_Cluster -->|forwards to| AS_Server
+    LB_Cluster -->|forwards to| DB_Server
+
+    subgraph WS_Server["SERVER — Web Server"]
+        WS["Web Server\n(Nginx)"]
+    end
+
+    subgraph AS_Server["SERVER — Application Server"]
+        AS["Application Server"]
+        CB["Codebase"]
+        AS --- CB
+    end
+
+    subgraph DB_Server["SERVER — Database"]
+        DB["Database\n(MySQL)"]
+    end
+
+    WS -->|forwards dynamic requests| AS
+    AS -->|reads/writes| DB
+```
+
+
+---
+
+
+EXPLANATIONS
+
+Why each additional element:
+- Second load balancer (HAproxy cluster): the two load balancers are configured as a cluster (active/passive). If the active one fails, the passive one takes over automatically, eliminating the load balancer as a SPOF.
+- Dedicated web server: isolates Nginx on its own machine so it can be scaled, maintained, and debugged independently without affecting the application or database.
+- Dedicated application server: isolates the application logic on its own machine, allowing independent scaling and avoiding resource conflicts with the web server or database.
+- Dedicated database server: isolates MySQL on its own machine, giving it dedicated resources (CPU, RAM, disk I/O) and improving security by limiting direct access to the data.
