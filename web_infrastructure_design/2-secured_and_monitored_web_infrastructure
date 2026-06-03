@@ -1,8 +1,8 @@
 ```mermaid
-Afficher plus22:03flowchart LR
-    User("User\nwww.foobar.com") -->|HTTPS request| FW0["Firewall 0"]
-    FW0 --> LB["Load Balancer\n(HAproxy + SSL certificate)"]
-    DNS["DNS\nwww → 8.8.8.8"] -->|IP: 8.8.8.8| LB
+flowchart LR
+    User("User - www.foobar.com") -->|HTTPS request| FW0["Firewall 0"]
+    FW0 --> LB["Load Balancer - HAproxy + SSL"]
+    DNS["DNS - www 8.8.8.8"] -->|IP 8.8.8.8| LB
 
     LB -->|forwards to| FW1["Firewall 1"]
     LB -->|forwards to| FW2["Firewall 2"]
@@ -11,10 +11,10 @@ Afficher plus22:03flowchart LR
     FW2 --> Server2
 
     subgraph Server1["SERVER 1"]
-        WS1["Web Server\n(Nginx)"]
+        WS1["Web Server Nginx"]
         AS1["Application Server"]
         CB1["Codebase"]
-        DB1["Database\n(MySQL Primary)"]
+        DB1["Database MySQL Primary"]
         MON1["Monitoring Client"]
 
         WS1 -->|forwards request| AS1
@@ -23,10 +23,10 @@ Afficher plus22:03flowchart LR
     end
 
     subgraph Server2["SERVER 2"]
-        WS2["Web Server\n(Nginx)"]
+        WS2["Web Server Nginx"]
         AS2["Application Server"]
         CB2["Codebase"]
-        DB2["Database\n(MySQL Replica)"]
+        DB2["Database MySQL Replica"]
         MON2["Monitoring Client"]
 
         WS2 -->|forwards request| AS2
@@ -35,7 +35,7 @@ Afficher plus22:03flowchart LR
     end
 
     DB1 -->|replicates to| DB2
-    MON1 -->|sends data| Sumo["Monitoring Service\n(Sumo Logic)"]
+    MON1 -->|sends data| Sumo["Monitoring Service - Sumo Logic"]
     MON2 -->|sends data| Sumo
     LB --- MON0["Monitoring Client"]
     MON0 -->|sends data| Sumo

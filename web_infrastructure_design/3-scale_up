@@ -1,10 +1,10 @@
 ```mermaid
 flowchart LR
-    User("User\nwww.foobar.com") -->|HTTPS request| LB_Cluster
+    User("User - www.foobar.com") -->|HTTPS request| LB_Cluster
 
-    subgraph LB_Cluster["LOAD BALANCER CLUSTER (HAproxy)"]
-        LB1["Load Balancer 1\n(active)"]
-        LB2["Load Balancer 2\n(passive)"]
+    subgraph LB_Cluster["LOAD BALANCER CLUSTER HAproxy"]
+        LB1["Load Balancer 1 - active"]
+        LB2["Load Balancer 2 - passive"]
         LB1 <-->|sync| LB2
     end
 
@@ -12,18 +12,18 @@ flowchart LR
     LB_Cluster -->|forwards to| AS_Server
     LB_Cluster -->|forwards to| DB_Server
 
-    subgraph WS_Server["SERVER — Web Server"]
-        WS["Web Server\n(Nginx)"]
+    subgraph WS_Server["SERVER - Web Server"]
+        WS["Web Server Nginx"]
     end
 
-    subgraph AS_Server["SERVER — Application Server"]
+    subgraph AS_Server["SERVER - Application Server"]
         AS["Application Server"]
         CB["Codebase"]
         AS --- CB
     end
 
-    subgraph DB_Server["SERVER — Database"]
-        DB["Database\n(MySQL)"]
+    subgraph DB_Server["SERVER - Database"]
+        DB["Database MySQL"]
     end
 
     WS -->|forwards dynamic requests| AS
