@@ -1,17 +1,17 @@
 ```mermaid
 flowchart LR
-    User("User\nwww.foobar.com") -->|DNS query| DNS["DNS\nwww → 8.8.8.8"]
-    User -->|HTTP/HTTPS request| LB["Load Balancer\n(HAproxy)"]
+    User("User www.foobar.com") -->|DNS query| DNSholbertonschool-network["DNS www → 8.8.8.8"]
+    User -->|HTTP/HTTPS request| LB["Load Balancer (HAproxy)"]
     DNS -->|IP: 8.8.8.8| LB
 
     LB -->|forwards to| Server1
     LB -->|forwards to| Server2
 
     subgraph Server1["SERVER 1"]
-        WS1["Web Server\n(Nginx)"]
+        WS1["Web Server (Nginx)"]
         AS1["Application Server"]
         CB1["Codebase"]
-        DB1["Database\n(MySQL Primary)"]
+        DB1["Database (MySQL Primary)"]
 
         WS1 -->|forwards request| AS1
         AS1 --- CB1
@@ -19,10 +19,10 @@ flowchart LR
     end
 
     subgraph Server2["SERVER 2"]
-        WS2["Web Server\n(Nginx)"]
+        WS2["Web Server (Nginx)"]
         AS2["Application Server"]
         CB2["Codebase"]
-        DB2["Database\n(MySQL Replica)"]
+        DB2["Database (MySQL Replica)"]
 
         WS2 -->|forwards request| AS2
         AS2 --- CB2
