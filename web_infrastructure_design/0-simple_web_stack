@@ -1,22 +1,4 @@
-```mermaid
-flowchart LR
-    User("User www.foobar.com") -->|DNS query| DNS["DNS www → 8.8.8.8"]
-    DNS -->|IP: 8.8.8.8| Server
-    User -->|HTTP/HTTPS request| Server
-
-    subgraph Server["SERVER 8.8.8.8"]
-        WebServer["Web Server (Nginx)"]
-        AppServer["Application Server"]
-        Codebase["Codebase (Application Files)"]
-        DB["Database (MySQL)"]
-
-        WebServer -->|forwards request| AppServer
-        AppServer -->|reads/writes| DB
-        AppServer --- Codebase
-    end
-
-    Server -->|HTTP response| User
-```
+![Task 0](assets/Task_0.png)
 
 
 ---

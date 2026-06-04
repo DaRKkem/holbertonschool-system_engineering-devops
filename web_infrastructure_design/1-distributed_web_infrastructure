@@ -1,36 +1,4 @@
-```mermaid
-flowchart LR
-    User("User www.foobar.com") -->|DNS query| DNSholbertonschool-network["DNS www → 8.8.8.8"]
-    User -->|HTTP/HTTPS request| LB["Load Balancer (HAproxy)"]
-    DNS -->|IP: 8.8.8.8| LB
-
-    LB -->|forwards to| Server1
-    LB -->|forwards to| Server2
-
-    subgraph Server1["SERVER 1"]
-        WS1["Web Server (Nginx)"]
-        AS1["Application Server"]
-        CB1["Codebase"]
-        DB1["Database (MySQL Primary)"]
-
-        WS1 -->|forwards request| AS1
-        AS1 --- CB1
-        AS1 -->|reads/writes| DB1
-    end
-
-    subgraph Server2["SERVER 2"]
-        WS2["Web Server (Nginx)"]
-        AS2["Application Server"]
-        CB2["Codebase"]
-        DB2["Database (MySQL Replica)"]
-
-        WS2 -->|forwards request| AS2
-        AS2 --- CB2
-        AS2 -->|reads only| DB2
-    end
-
-    DB1 -->|replicates to| DB2
-```
+![Task 1](assets/Task_1.png)
 
 
 ---
