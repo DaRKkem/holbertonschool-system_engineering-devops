@@ -13,64 +13,14 @@ A basic infrastructure hosting `www.foobar.com` on a single server.
 Components: Nginx, application server, codebase, MySQL database.
 Key concepts: SPOF, DNS A record, TCP/IP communication.
 
-```mermaid
-flowchart LR
-    User("User\nwww.foobar.com") -->|DNS query| DNS["DNS\nwww → 8.8.8.8"]
-    DNS -->|IP: 8.8.8.8| Server
-    User -->|HTTP/HTTPS request| Server
-
-    subgraph Server["SERVER 8.8.8.8"]
-        WebServer["Web Server\n(Nginx)"]
-        AppServer["Application Server"]
-        Codebase["Codebase\n(Application Files)"]
-        DB["Database\n(MySQL)"]
-
-        WebServer -->|forwards request| AppServer
-        AppServer -->|reads/writes| DB
-        AppServer --- Codebase
-    end
-
-    Server -->|HTTP response| User
-```
+![Task 0](assets/Task_0.png)
 
 ### 1. Distributed Web Infrastructure
 A three-server infrastructure with a load balancer (HAproxy).
 Components: 2 servers (Nginx + app server + codebase + MySQL), HAproxy with Round Robin.
 Key concepts: Active-Active setup, Primary-Replica database cluster, redundancy.
 
-```mermaid
-flowchart LR
-    User("User\nwww.foobar.com") -->|DNS query| DNS["DNS\nwww → 8.8.8.8"]
-    User -->|HTTP/HTTPS request| LB["Load Balancer\n(HAproxy)"]
-    DNS -->|IP: 8.8.8.8| LB
-
-    LB -->|forwards to| Server1
-    LB -->|forwards to| Server2
-
-    subgraph Server1["SERVER 1"]
-        WS1["Web Server\n(Nginx)"]
-        AS1["Application Server"]
-        CB1["Codebase"]
-        DB1["Database\n(MySQL Primary)"]
-
-        WS1 -->|forwards request| AS1
-        AS1 --- CB1
-        AS1 -->|reads/writes| DB1
-    end
-
-    subgraph Server2["SERVER 2"]
-        WS2["Web Server\n(Nginx)"]
-        AS2["Application Server"]
-        CB2["Codebase"]
-        DB2["Database\n(MySQL Replica)"]
-
-        WS2 -->|forwards request| AS2
-        AS2 --- CB2
-        AS2 -->|reads only| DB2
-    end
-
-    DB1 -->|replicates to| DB2
-```
+![Task 1](assets/Task_1.png)
 
 ### 2. Secured and Monitored Web Infrastructure
 The distributed infrastructure secured and monitored.
