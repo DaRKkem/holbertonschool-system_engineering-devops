@@ -34,37 +34,7 @@ A fully split infrastructure with dedicated servers per component.
 Components: 1 additional server, HAproxy cluster (active/passive), dedicated web server, application server, and database server.
 Key concepts: elimination of SPOF at load balancer level, component isolation.
 
-```mermaid
-flowchart LR
-    User("User - www.foobar.com") -->|HTTPS request| LB_Cluster
-
-    subgraph LB_Cluster["LOAD BALANCER CLUSTER HAproxy"]
-        LB1["Load Balancer 1 - active"]
-        LB2["Load Balancer 2 - passive"]
-        LB1 <-->|sync| LB2
-    end
-
-    LB_Cluster -->|forwards to| WS_Server
-    LB_Cluster -->|forwards to| AS_Server
-    LB_Cluster -->|forwards to| DB_Server
-
-    subgraph WS_Server["SERVER - Web Server"]
-        WS["Web Server Nginx"]
-    end
-
-    subgraph AS_Server["SERVER - Application Server"]
-        AS["Application Server"]
-        CB["Codebase"]
-        AS --- CB
-    end
-
-    subgraph DB_Server["SERVER - Database"]
-        DB["Database MySQL"]
-    end
-
-    WS -->|forwards dynamic requests| AS
-    AS -->|reads/writes| DB
-```
+![Task 3](assets/Task_3.png)
 
 ---
 
