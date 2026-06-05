@@ -59,3 +59,9 @@ Key concepts: elimination of SPOF at load balancer level, component isolation.
 
 - GitHub repository: `holbertonschool-system_engineering-devops`
 - Directory: `web_infrastructure_design`
+
+---
+
+## Author
+
+**Damien Rossi** - **[DaRKkem](https://github.com/DaRKkem)** — Holberton School, cohort C28, Auvergne-Rhône-Alpes
